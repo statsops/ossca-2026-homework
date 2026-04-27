@@ -43,9 +43,9 @@ func netnsHandler(w http.ResponseWriter, r *http.Request) {
 	// CMD object generation
 	cmd := exec.Command(req.Path, req.Args...)
 
-	// 1. child process conducting in a new Network Namespace(CLONE_NEWNET)
+	// 1. unshare: child process conducting in a new Network Namespace(CLONE_NEWNET)
 	cmd.SysProcAttr = &syscall.SysProcAttr{
-		Cloneflags: syscall.CLONE_NEWNET,
+		Unshareflags: syscall.CLONE_NEWNET,
 	}
 
 	// process start (no waiting for completion)
